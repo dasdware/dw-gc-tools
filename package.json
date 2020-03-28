@@ -1,0 +1,30 @@
+{
+  "name": "gc-tools",
+  "version": "1.0.0",
+  "description": "Tools for Geocaching",
+  "scripts": {
+    "start": "parcel src/index.html",
+    "build": "parcel build src/index.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Geocaching",
+    "Tools",
+    "Maps",
+    "Calculator"
+  ],
+  "author": "dasd.ware",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^25.1.4",
+    "jest": "^25.1.0",
+    "parcel-bundler": "^1.12.4",
+    "parcel-plugin-pegjs": "0.0.2",
+    "pegjs": "^0.11.0-master.b7b87ea",
+    "ts-jest": "^25.2.1",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "preact": "^10.3.4"
+  }
+}
