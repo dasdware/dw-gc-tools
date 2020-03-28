@@ -1,24 +1,25 @@
 import { Variables } from "./utils/variables";
+import { Expression } from "./formulas/formula";
 
-function calculateNumber(node: any, variables: Variables): number {
-    switch (node.kind) {
-        case 'variable': return variables.get(node.name);
-        case 'number': return <number>node.value;
-        case 'add': return calculateNumber(node.left, variables) + calculateNumber(node.right, variables);
-        case 'subtract': return calculateNumber(node.left, variables) - calculateNumber(node.right, variables);
-        case 'multiply': return calculateNumber(node.left, variables) * calculateNumber(node.right, variables);
-        case 'divide': return calculateNumber(node.left, variables) / calculateNumber(node.right, variables);
+function calculateNumber(expression: Expression, variables: Variables): number {
+    switch (expression.kind) {
+        case 'variable': return variables.get(expression.name!);
+        case 'number': return <number>expression.value;
+        case 'add': return calculateNumber(expression.operands![0], variables) + calculateNumber(expression.operands![1], variables);
+        case 'subtract': return calculateNumber(expression.operands![0], variables) - calculateNumber(expression.operands![1], variables);
+        case 'multiply': return calculateNumber(expression.operands![0], variables) * calculateNumber(expression.operands![1], variables);
+        case 'divide': return calculateNumber(expression.operands![0], variables) / calculateNumber(expression.operands![1], variables);
         default:
-            console.warn('Unknown node kind:', node.kind);
+            console.warn('Unknown node kind:', expression.kind);
             return NaN;
     }
 }
 
-function calculateExpression(node: any, variables: Variables) {
-    switch (node.kind) {
+function calculateExpression(expression: Expression, variables: Variables) {
+    switch (expression.kind) {
         case 'degrees': return '° ';
         case 'dot': return '.';
-        default: return Math.round(calculateNumber(node, variables)).toString();
+        default: return Math.round(calculateNumber(expression, variables)).toString();
     }
 }
 

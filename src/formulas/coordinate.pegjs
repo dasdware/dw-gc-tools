@@ -11,16 +11,16 @@ Expression = Addition
 Addition
   = head:Multiplication tail:(_ ("+" / "-") _ Multiplication)* {
       return tail.reduce(function(result, element) {
-        if (element[1] === "+") { return { kind: "add", left: result, right: element[3] }; }
-        if (element[1] === "-") { return { kind: "subtract", left: result, right: element[3] }; }
+        if (element[1] === "+") { return { kind: "add", operands: [ result, element[3] ] }; }
+        if (element[1] === "-") { return { kind: "subtract", operands: [ result, element[3] ] }; }
       }, head);
     }
  
 Multiplication
   = head:Factor tail:(_ ("*" / "/") _ Factor)* {
       return tail.reduce(function(result, element) {
-        if (element[1] === "*") { return { kind: "multiply", left: result, right: element[3] }; }
-        if (element[1] === "/") { return { kind: "divide", left: result, right: element[3] }; }
+        if (element[1] === "*") { return { kind: "multiply", operands: [ result, element[3] ] }; }
+        if (element[1] === "/") { return { kind: "divide", operands: [ result, element[3] ] }; }
       }, head);
     }
  

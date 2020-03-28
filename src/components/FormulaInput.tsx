@@ -2,27 +2,28 @@ import { useLocalStorageState } from "../hooks/useLocalStorageState";
 import { h, FunctionalComponent } from 'preact';
 import { useEffect } from "preact/hooks";
 import { Variables } from "../utils/variables";
-import { FormulaAST, parseToAST } from "../utils/parser";
 import calculate from "../coordinate-calculation";
+import { parseCoordinateFormula, ParsedCoordinateFormula } from "../formulas/formula-parser";
+import { Expression } from "../formulas/formula";
 
 
-function collectVariables(ast: FormulaAST, variables: Variables) {
-    const collectExpressionVariables = (node: any) => {
+function collectVariables(parsedFormula: ParsedCoordinateFormula, variables: Variables) {
+    const collectExpressionVariables = (node: Expression) => {
         switch (node.kind) {
             case 'variable':
-                variables.register(node.name);
+                variables.register(node.name!);
                 break;
             case 'add':
             case 'subtract':
             case 'multiply':
             case 'divide':
-                collectExpressionVariables(node.left);
-                collectExpressionVariables(node.right);
+                collectExpressionVariables(node.operands![0]);
+                collectExpressionVariables(node.operands![1]);
                 break;
         }
     };
 
-    for (const expression of ast.root.expressions) {
+    for (const expression of parsedFormula.formula!.expressions) {
         collectExpressionVariables(expression);
     }  
 }
@@ -41,12 +42,12 @@ export const FormulaInput: FunctionalComponent<FormulaInputProps> = (props) =>
 
     // useEffect(
     //     () => {
-            const ast = parseToAST(formula);
-            if (!ast.haveError) {
-                collectVariables(ast, props.variables);
-                value = calculate(ast.root, props.variables);
+            const parsedFormula = parseCoordinateFormula(formula);
+            if (!parsedFormula.haveError) {
+                collectVariables(parsedFormula, props.variables);
+                value = calculate(parsedFormula.formula, props.variables);
             } else {
-                error = ast.error;
+                error = parsedFormula.error;
             }
     //     },
     //     [formula, props.variables]
