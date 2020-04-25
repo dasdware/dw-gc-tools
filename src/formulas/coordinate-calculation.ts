@@ -1,5 +1,5 @@
-import { Variables } from "./utils/variables";
-import { Expression } from "./formulas/formula";
+import { Variables } from "./variables";
+import { Expression } from "./formula";
 
 function calculateNumber(expression: Expression, variables: Variables): number {
     switch (expression.kind) {

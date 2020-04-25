@@ -1,6 +1,11 @@
 import { useState, useEffect, StateUpdater } from "preact/hooks"
 
-export type Creator<T> = () => T; 
+export type Creator<T> = () => T;
+
+export interface Mapper<T, U> {
+    mapToStorage: (input: T) => U;
+    mapFromStorage: (input: U) => T;
+} 
 
 function invokeOrReturn(f: any) {
 	return typeof f == 'function' ? f() : f;
@@ -17,9 +22,28 @@ export function useLocalStorageState<T>(initialValue: T | Creator<T>, key: strin
     const [value, setValue] = useState(initFunction);
 
     useEffect(
-        () => localStorage.setItem(key, JSON.stringify(value)),
+        () => {
+            console.log('writing to local storage', key, value);
+            localStorage.setItem(key, JSON.stringify(value));
+        },
         [value]
     );
 
     return [value, setValue];
+}
+
+export function useMappedLocalStorageState<T, U>(initialValue: U | Creator<U>, key: string, mapper: Mapper<T, U>): [T, StateUpdater<T>] {
+    const [mappedValue, setMappedValue] = useLocalStorageState<U>(initialValue, key);
+
+    return [
+        mapper.mapFromStorage(mappedValue), 
+        (value: T | ((prevState: T) => T)) => {
+            const anyValue = <any>value;
+            if (typeof anyValue === 'function') {
+                setMappedValue((oldValue: U) => mapper.mapToStorage(anyValue(mapper.mapFromStorage(oldValue))))
+            } else {
+                setMappedValue(mapper.mapToStorage(anyValue))
+            }
+        }
+    ];
 }
