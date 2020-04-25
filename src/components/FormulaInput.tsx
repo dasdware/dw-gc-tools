@@ -15,7 +15,7 @@ export const FormulaInput: FunctionalComponent<FormulaInputProps> = (props) =>
             {
                 props.formula.haveError 
                     ? <div class="error">{props.formula.error}</div> 
-                    : <div class="result">{props.formula.result}</div>
+                    : ''
             }
         </div>
     );

@@ -1,16 +1,126 @@
+$primary-color: #693;
+$primary-hover-color: adjust-color($primary-color, $lightness: -20%);
+
 $background-color: white;
 $text-color: #000;
-$border-color: #999;
+
+$border-radius: 4px;
+
+$field-border-color: #999;
+
+$field-size: 32px;
+
+
+@mixin border($color) {
+    border: 1px solid $color;
+    border-radius: $border-radius;
+}
 
 body {
     font-family: 'PT Sans', sans-serif;
     background: $background-color;
     color: $text-color;
+
+    min-height: 100vh;
+    padding: 0;
+    margin: 0;
 }
 
+/* SIDEBAR POSITION */
+.sidebar {
+    background-color: #f1f1f1;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    min-width: 300px;
+    border-right: 1px solid $field-border-color;
+
+    .content {
+        padding: 8px;
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        h1, h2 {
+            margin: 0;
+            margin-top: 0.5em;
+            margin-bottom: 0.2em;
+            color: #666;
+            font-weight: normal;
+        }
+    
+        input {
+            width: calc(100% - 2 * 8px);
+        }
+    
+        h1 {
+            font-size: 1.5em;
+        }
+    
+        h2 {
+            font-size: 1em;
+        }
+
+        .variables {
+            .entry {
+                margin-bottom: 8px;
+
+                .name {
+                    display: inline-block;
+                    width: 32px;
+                }
+
+                .value {
+                    display: inline-block;
+                    width: calc(100% - 2 * 32px - 8px);
+                }
+
+                .actions {
+                    float: right;
+                }
+            }
+        }
+    
+    }
+}
+  
+
 input {
+    @include border($field-border-color);
+
     background: $background-color;
-    padding: .5em;
-    border: 1px solid $border-color;
-    border-radius: 4px;
+
+    padding: 0 7px;
+    margin: 0;
+
+    height: $field-size;
+}
+
+.button {
+    @include border($primary-color);
+    color: $primary-color;
+
+    display: block;
+    width: $field-size;
+    height: $field-size;
+
+    cursor: pointer;
+
+    position: relative;
+    svg {
+        display: block;
+
+        position: absolute;
+        margin: 0;
+
+        top: 50%;
+        left: 50%;
+
+        transform: translate(-50%, -50%);
+    }
+
+    &:hover {
+        color: $primary-hover-color;
+        border-color: $primary-hover-color;
+    }
 }

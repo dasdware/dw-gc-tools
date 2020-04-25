@@ -3,6 +3,7 @@ import { h, FunctionalComponent } from "preact";
 import { Variables } from "../formulas/variables";
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "./FontAwesomeIcon";
+import { Button } from "./Button";
 
 export interface VariablesTableProps {
     variables: Variables;
@@ -10,33 +11,26 @@ export interface VariablesTableProps {
 
 export const VariablesTable: FunctionalComponent<VariablesTableProps> = (props) => {
     return (
-        <table>
-            <tr>
-                <th>Name</th>
-                <th>Value</th>
-                <th>Actions</th>
-            </tr>
+        <div class="variables">
             {props.variables.entries.map(
                 entry => (
-                    <tr>
-                        <td>
+                    <div class="entry">
+                        <div class="name">
                             {entry.name}
-                        </td>
-                        <td>
+                        </div>
+                        <div class="value">
                             <input 
                                 type="text" 
                                 value={entry.value}
                                 onInput={(e: any) => props.variables.set(entry.name, parseInt(e.target.value))}
                             />
-                        </td>
-                        <td>
-                            <div onClick={() => props.variables.set(entry.name, undefined)}>
-                                {entry.canDelete ? <FontAwesomeIcon icon={faTrashAlt} /> : ''}
-                            </div>
-                        </td>
-                    </tr>
+                        </div>
+                        <div class="actions">
+                            <Button icon={faTrashAlt} onClick={() => props.variables.set(entry.name, undefined)} />
+                        </div>
+                    </div>
                 )
             )}
-        </table>
+        </div>
     );
 };
