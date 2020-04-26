@@ -3,6 +3,7 @@ import { FontAwesomeIconIcon, FontAwesomeIcon } from "./FontAwesomeIcon";
 
 interface ButtonProps {
     icon?: FontAwesomeIconIcon,
+    enabled?: boolean,
     onClick?: () => void
 }
 
@@ -13,8 +14,13 @@ export const Button: FunctionalComponent<ButtonProps> = (props) => {
         }
     };
 
+    const classes = ['button'];
+    if (props.enabled === false) {
+        classes.push('disabled');
+    }
+
     return (
-        <div class="button" onClick={doClick}>
+        <div class={classes.join(' ')} onClick={doClick}>
             <FontAwesomeIcon icon={props.icon} />
         </div>
     );

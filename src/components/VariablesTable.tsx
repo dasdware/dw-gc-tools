@@ -26,7 +26,8 @@ export const VariablesTable: FunctionalComponent<VariablesTableProps> = (props) 
                             />
                         </div>
                         <div class="actions">
-                            <Button icon={faTrashAlt} onClick={() => props.variables.set(entry.name, undefined)} />
+                            <Button icon={faTrashAlt} enabled={entry.canDelete} 
+                                onClick={() => props.variables.set(entry.name, undefined)} />
                         </div>
                     </div>
                 )

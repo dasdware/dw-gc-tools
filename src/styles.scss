@@ -119,8 +119,14 @@ input {
         transform: translate(-50%, -50%);
     }
 
-    &:hover {
+    &:hover:not(.disabled) {
         color: $primary-hover-color;
         border-color: $primary-hover-color;
+    }
+
+    &.disabled {
+        border-color: $field-border-color;
+        color: $field-border-color;
+        cursor: default;
     }
 }
