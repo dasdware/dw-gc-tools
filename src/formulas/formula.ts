@@ -94,6 +94,19 @@ export class CoordinateFormula {
         return this._result;
     }
 
+    get decimalResult() {
+        if (this.result === undefined) {
+            return undefined;
+        }
+
+        const parts = /^(?:N|E)\s*(\d+)°\s*(\d+\.\d+)$/.exec(this.result.trim());
+        if (parts === null) {
+            return undefined;
+        }
+
+        return parseFloat(parts[1]) + parseFloat(parts[2]) / 60;
+    }
+
     get variables() {
         return this._variables;
     }
