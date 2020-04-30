@@ -3,6 +3,8 @@ import humps from 'humps';
 
 import { createElement, FunctionalComponent } from "preact";
 
+// adapted for typescript from https://gist.github.com/danalloway/40402632adfb4bf5d9578210cd3dbc14
+
 const normalizeIconArgs = (icon: string | object | any[] | undefined) => {
     if (icon === null) {
         return null
