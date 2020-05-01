@@ -1,5 +1,5 @@
 Coordinate
-    = coordType:("N" / "E") _ head:Expression tail:(_ Expression)* {
+    = coordType:("N" / "S" / "E" / "W") _ head:Expression tail:(_ Expression)* {
            coordType = coordType || "U";
            return { kind: 'formula', coordType, expressions: [head, ...(tail.map(expr => expr[1]))] };
    }

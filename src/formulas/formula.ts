@@ -103,12 +103,17 @@ export class CoordinateFormula {
             return undefined;
         }
 
-        const parts = /^(?:N|E)\s*(\d+)°\s*(\d+\.\d+)$/.exec(this.result.trim());
+        const parts = /^(N|S|E|W)\s*(\d+)°\s*(\d+\.\d+)$/.exec(this.result.trim());
         if (parts === null) {
             return undefined;
         }
 
-        return parseFloat(parts[1]) + parseFloat(parts[2]) / 60;
+        const coordinate = parseFloat(parts[2]) + parseFloat(parts[3]) / 60;
+        if (parts[1].match(/S|W/)) {
+            return -coordinate;
+        } else {
+            return coordinate;
+        }
     }
 
     get variables() {
