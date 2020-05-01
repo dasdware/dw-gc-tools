@@ -24,6 +24,10 @@ function calculateExpression(expression: Expression, variables: Variables) {
 }
 
 export default function calculate(ast: any, variables: Variables) {
+    if (ast == undefined) {
+        return undefined;
+    }
+    
     let result = ast.coordType + ' ';
 
     for (const expression of ast.expressions) {
