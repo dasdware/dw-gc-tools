@@ -45,6 +45,10 @@ export class CoordinateFormula {
     }
 
     registerVariables() {
+        if (this.coordinateFormula === undefined) {
+            return;
+        }
+
         const collectExpressionVariables = (node: Expression) => {
             switch (node.kind) {
                 case 'variable':
@@ -60,7 +64,7 @@ export class CoordinateFormula {
             }
         };
     
-        for (const expression of this.coordinateFormula!.expressions) {
+        for (const expression of this.coordinateFormula.expressions) {
             collectExpressionVariables(expression);
         }  
         this.updateResult();
