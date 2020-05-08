@@ -1,11 +1,9 @@
-import { StateUpdater } from "preact/hooks/src";
-import { useLocalStorageState } from "../hooks/useLocalStorageState";
 import { parseCoordinateFormula, ParsedCoordinateFormula } from "./formula-parser";
 import { Variables } from "./variables";
 import calculate from "./coordinate-calculation";
 
 export type ExpressionKind = 'add' | 'subtract' | 'multiply' | 'divide' | 'number' | 'variable' | 'degrees' | 'dot';
-export type CoordinateKind = 'N' | 'E' | 'U';
+export type CoordinateKind = 'N' | 'S' | 'E' | 'W' | 'U';
 
 export interface Expression {
     kind: ExpressionKind;
@@ -15,7 +13,8 @@ export interface Expression {
 }
 
 export interface CoordinateFormulaExpression {
-    kind: CoordinateKind;
+    kind: 'formula';
+    coordType: CoordinateKind;
     expressions: Expression[];
 }
 
