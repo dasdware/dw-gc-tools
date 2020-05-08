@@ -30,7 +30,7 @@ function loadStoredAppState() {
 
     const variables = localStorage.getItem('variables');
     if (variables != null) {
-        appState.variables = JSON.parse(variables);
+        appState.variables = Map<number>(JSON.parse(variables));
     }
 
     return appState;
