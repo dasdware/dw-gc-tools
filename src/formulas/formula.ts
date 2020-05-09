@@ -36,11 +36,7 @@ export class CoordinateFormula {
     }
 
     private updateResult() {
-        if (this._variables !== undefined) {
-            this._result = calculate(this.coordinateFormula, this._variables);
-        } else {
-            this._result = undefined;
-        }
+        this._result = calculate(this.coordinateFormula, this._variables);
     }
 
     registerVariables() {

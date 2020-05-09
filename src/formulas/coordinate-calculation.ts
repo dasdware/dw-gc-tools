@@ -1,9 +1,14 @@
 import { Variables } from "./variables";
 import { Expression } from "./formula";
 
-function calculateNumber(expression: Expression, variables: Variables): number {
+function calculateNumber(expression: Expression, variables?: Variables): number {
     switch (expression.kind) {
-        case 'variable': return variables.get(expression.name!);
+        case 'variable': 
+            if (variables !== undefined) {
+                return variables.get(expression.name!);
+            } else {
+                return NaN;
+            };
         case 'number': return <number>expression.value;
         case 'add': return calculateNumber(expression.operands![0], variables) + calculateNumber(expression.operands![1], variables);
         case 'subtract': return calculateNumber(expression.operands![0], variables) - calculateNumber(expression.operands![1], variables);
@@ -15,7 +20,7 @@ function calculateNumber(expression: Expression, variables: Variables): number {
     }
 }
 
-function calculateExpression(expression: Expression, variables: Variables) {
+function calculateExpression(expression: Expression, variables?: Variables) {
     switch (expression.kind) {
         case 'degrees': return '° ';
         case 'dot': return '.';
@@ -23,7 +28,7 @@ function calculateExpression(expression: Expression, variables: Variables) {
     }
 }
 
-export default function calculate(ast: any, variables: Variables) {
+export default function calculate(ast: any, variables?: Variables) {
     if (ast == undefined) {
         return undefined;
     }
