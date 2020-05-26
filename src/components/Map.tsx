@@ -14,6 +14,8 @@ class ShowSettingsButton extends Control {
 
     onAdd = (_: LeafletMap) => {
         const container = DomUtil.create('div', 'button leaflet-control leaflet-control-custom');
+        container.id="show-settings";
+        
         render(<FontAwesomeIcon icon={faCog} />, container);
 
         container.style.backgroundColor = 'white';     

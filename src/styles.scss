@@ -140,11 +140,21 @@ input {
 
 #map {
     flex-grow: 1;
+
+    #show-settings {
+        display: none;
+    }
 }
 
 @media only screen and (max-width: 800px) {
     #map:not(.active) {
         display: none;
+    }
+
+    #map.active {
+        #show-settings {
+            display: inherit;
+        }
     }
 
     .sidebar {
