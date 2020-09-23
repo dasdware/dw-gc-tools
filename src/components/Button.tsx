@@ -1,5 +1,6 @@
 import { h, FunctionalComponent } from "preact"
 import { FontAwesomeIconIcon, FontAwesomeIcon } from "./FontAwesomeIcon";
+import { buttonClasses } from "../styles";
 
 interface ButtonProps {
     icon?: FontAwesomeIconIcon,
@@ -14,13 +15,9 @@ export const Button: FunctionalComponent<ButtonProps> = (props) => {
         }
     };
 
-    const classes = ['button'];
-    if (props.enabled === false) {
-        classes.push('disabled');
-    }
-
+    const enabled = (props.enabled !== undefined) ? props.enabled : true;
     return (
-        <div class={classes.join(' ')} onClick={doClick}>
+        <div className={buttonClasses(enabled)} onClick={doClick}>
             <FontAwesomeIcon icon={props.icon} />
         </div>
     );

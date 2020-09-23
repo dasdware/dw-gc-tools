@@ -1,5 +1,6 @@
 import { h, FunctionalComponent } from 'preact';
 import { CoordinateFormula } from "../formulas/formula";
+import { errorMessage } from '../styles';
 
 interface FormulaInputProps {
     formula: CoordinateFormula;
@@ -14,7 +15,7 @@ export const FormulaInput: FunctionalComponent<FormulaInputProps> = (props) =>
             </div>
             {
                 props.formula.haveError 
-                    ? <div class="error">{props.formula.error}</div> 
+                    ? <div className={errorMessage}>{props.formula.error}</div> 
                     : ''
             }
         </div>

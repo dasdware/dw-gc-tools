@@ -3,8 +3,11 @@ import { useEffect, useRef } from "preact/hooks";
 
 import { Map as LeafletMap, Control, DomUtil, TileLayer, marker, Icon}  from 'leaflet';
 import { AppController, AppView } from "../app-controller";
-import { faAdjust, faCogs, faCog } from "@fortawesome/free-solid-svg-icons";
+import { faCog } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "./FontAwesomeIcon";
+import { map } from "../styles/map";
+import { button } from "../styles";
+import { classes } from "typestyle";
 
 class ShowSettingsButton extends Control {
 
@@ -13,7 +16,7 @@ class ShowSettingsButton extends Control {
     }
 
     onAdd = (_: LeafletMap) => {
-        const container = DomUtil.create('div', 'button leaflet-control leaflet-control-custom');
+        const container = DomUtil.create('div', classes(button, 'leaflet-control', 'leaflet-control-custom'));
         container.id="show-settings";
         
         render(<FontAwesomeIcon icon={faCog} />, container);
@@ -111,7 +114,7 @@ export const Map: FunctionalComponent<MapProps> = (props) => {
         });
    
 
-    return <div id={props.id} ref={mapDivRef} style="height: 100%"></div>;
+    return <div id={props.id} ref={mapDivRef} className={map}></div>;
 };
 
 Map.defaultProps = DEFAULT_PROPS;
