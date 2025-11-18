@@ -24,7 +24,7 @@
     "@types/mocha": "^7.0.2",
     "chai": "^4.2.0",
     "jest": "^25.5.4",
-    "mocha": "^7.2.0",
+    "mocha": "^11.7.5",
     "parcel-bundler": "^1.12.4",
     "parcel-plugin-pegjs": "0.0.2",
     "pegjs": "^0.11.0-master.f69239d",
